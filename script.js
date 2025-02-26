@@ -22,11 +22,21 @@ async function getWeather() {
         }
 
         const data = await response.json();
+        console.log(data.json);
 
-        document.getElementById("cityName").textContent = `📍 ${data.name}`;
-        document.getElementById("temperature").textContent = `🌡️ Temperature: ${data.main.temp}°C`;
-        document.getElementById("description").textContent = `☁️ ${data.weather[0].description}`;
-        document.getElementById("wind").textContent = `💨 Wind Speed: ${data.wind.speed} m/s`;
+        document.getElementById("cityName").innerText = `${data.name}, ${data.sys.country}`;
+        document.getElementById("temperature").innerText = ` ${data.main.temp}°C (Feels like: ${data.main.feels_like}°C)`;
+        document.getElementById("description").innerText = `${data.weather[0].description}`;
+        document.getElementById("wind").innerText = `${data.wind.speed} m/s, Direction: ${data.wind.deg}°`;
+        document.getElementById("coordinates").innerText = `lat - ${data.coord.lat}, lang - ${data.coord.lon}`;
+        document.getElementById("pressure").innerText = `${data.main.pressure} hPa`;
+        document.getElementById("Humidity").innerText = `${data.main.humidity}%`;
+        document.getElementById("sunrise").innerText = ` ${new Date(data.sys.sunrise * 1000).toLocaleTimeString()}`;
+        document.getElementById("sunset").innerText = `${new Date(data.sys.sunset * 1000).toLocaleTimeString()}`;
+        document.getElementById("visibility").innerText = `${data.visibility / 1000} km`;
+        document.getElementById("cloudiness").innerText = `${data.clouds.all}%`;
+
+        
 
         weatherInfo.classList.remove("hidden");
         errorMsg.classList.add("hidden");
